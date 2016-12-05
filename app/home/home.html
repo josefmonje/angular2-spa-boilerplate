@@ -1,0 +1,71 @@
+<div class="container">
+  <div class="columns">
+    <div class="column">
+      <h1 class="title">{{ route.snapshot.params[0] | title }}</h1>
+      <p>I'm a bit old-school when it comes to javascript so my only cli command is just <span>npm install</span> and my JavaScript is just JavaScript. I don't have anything running on the background. Don't judge me. :D</p>
+      <br>
+      <p>Built while just starting to learn Angular 2, I needed something that can be used as boilerplate for a single page app, something that my team can easily use. This can serve as boilerplate for a small to medium-sized single-page app with minimal modifications.</p>
+      <br>
+      <div class="box">
+        <p>If you're a designer, you can skip all the javascript files. It's supposed to take care of itself. Just familiarize yourself with the structure.</p>
+        <br>
+        <p>If you're a developer, this boilerplate automates some things for you. All you have to do is copy/paste a component folder and focus on building your component.</p>
+      </div>
+    </div>
+  </div>
+  <div class="columns">
+    <div class="column is-narrow">
+      <h3 class="title">Organizing the files</h3>
+        <pre>
+Project folder
+    ├───  index.html
+    ├───  package.json
+    ├┬──   assets/
+    │├──   css/
+    │├──   images/
+    │├──   js/
+    │└──   logo.png
+    ├┬──  node_modules/
+    │└──   etc...
+    │
+    └┬──  app/
+     ├──  app.js
+     ├──  app.html
+     ├──  app.css
+     ├──  main.js
+     ├──  module.js
+     │
+     ├┬─  utils/
+     │└─  pipes.js
+     │
+     │
+     └┬─  componentName/
+      ├─  componentName.js
+      ├─  componentName.html
+      └─  componentName.css
+      </pre>
+    </div>
+    <div class="column">
+    <p class="title">Explanation</p>
+      <br>
+      <div class="box">
+        <br>
+        <br>
+        <p>Files here at the top are self explanatory.</p>
+        <br>
+        <br>
+      </div>
+      <div class="box">
+        <p>This is our single-page app. It's a typical Angular 2 component. The JS, HTML, and optional CSS are in this folder together with some Angular 2 boilerplate. This is how we'll organize it.</p>
+      </div>
+      <div class="box">
+        <p>A custom pipe. Pipes are just filters from Angular 1. This is a simple example used throughout our app to capitalize the first letter.</p>
+      </div>
+      <div class="box">
+        <p>Let's put components in their own subfolder inside app/. Things for this component belong in here, otherwise they go in utils/ like our custom pipe. Copy/paste this folder and change the componentName and name constant inside the script for a new component. Use lowercase for file names.</p>
+        <br>
+      </div>
+      <p>That's it! We'll see how it works in the next section.</p>
+    </div>
+  </div>
+</div>

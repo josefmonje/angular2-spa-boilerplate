@@ -1,0 +1,77 @@
+<div class="container">
+  <div class="columns">
+    <div class="column">
+      <h1 class="title">{{ route.snapshot.params[0] | title }}</h1>
+
+      <h3 class="title">project/app/app.js</h3>
+      <article class="message is-info">
+        <div class="message-header">
+          Utility Function Example
+        </div>
+        <div class="message-body">
+          <p>The <span>get_list()</span> utility function was used to retrieve some routes in app.js.</p>
+        </div>
+      </article>
+      <pre>
+      {{".Class({
+        constructor: function () {
+          this.nav = app.get_list('routes').filter((each) => {return !('hidden' in each)})
+        }
+      })"}}
+      </pre>
+
+      <h3 class="title">project/files/files.js</h3>
+      <article class="message is-info">
+        <div class="message-header">
+          Extra route with arguments
+        </div>
+        <div class="message-body">
+          <p>In files.js, I added an extra route so I can have a files/ route (created and registered automatically) and a files/:file (accepts argument) because there are no optional arguments in Angular 2. In the source, I defined the one that accepts an argument before the one without an argument. This way, when angular matches routes, it's found first and we can fall back on the one that doesn't accept arguments if there's no file.</p>
+        </div>
+      </article>
+      <pre>
+      {{"app.routes[`__${name}File`] = {
+        path: `${name.toLowerCase()}/:file`, 
+        component: app.declarables[name], 
+        hidden: true,
+      }"}}
+      </pre>
+
+      <h3 class="title">project/app/modules.js</h3>
+      <article class="message is-info">
+        <div class="message-header">
+          Private and hidden routes
+        </div>
+        <div class="message-body">
+          <p>Simliar to the extra route in files.js, I added a "private" __otherwise route.</p>
+          <br>
+          <p>__otherwise is prefixed with '__' (double underscore), which excludes it from being returned by get_list().</p>
+          <br>
+          <p>_FilesFile has a property <span>'hidden: true'</span> that excludes it from being displayed in the nav.</p>
+        </div>
+      </article>
+      <pre>
+      {{"app.routes.__otherwise = { path: '**',
+        redirectTo: 'home',
+        pathMatch: 'full',
+      }"}}
+      </pre>
+
+      <h3 class="title">project/app/app.html</h3>
+      <article class="message is-info">
+        <div class="message-header">
+          Utility Function Example
+        </div>
+        <div class="message-body">
+          <p>The routes were displayed in the HTML.</p>
+        </div>
+      </article>
+      <pre>
+      {{'&lt;a class="nav-item is-tab" *ngFor="let each of nav" [routerLink]="each.path" routerLinkActive="is-active"&gt;
+        \{\{ each.path | title \}\}
+      &lt;/a&gt;'}}
+      </pre>
+
+    </div>
+  </div>
+</div>

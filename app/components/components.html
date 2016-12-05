@@ -1,0 +1,106 @@
+<div class="container">
+  <div class="columns">
+    <div class="column">
+      <h1 class="title">{{ route.snapshot.params[0] | title }}</h1>
+
+      <h3 class="title">project/app/componentName/componentName.js</h3>
+      <article class="message is-info">
+        <div class="message-header">
+          Modified Component
+        </div>
+        <div class="message-body">
+          <p>The name constant is used when registering this component to the declarables and routes namepsaces.</p>
+          <br>
+          <p>Components are registered at <span>app.declarables[name]</span>.</p>
+          <br>
+          <p>Route objects have path and component attributes and are registered at <span>app.routes[name]</span>.</p>
+        </div>
+      </article>
+      <pre>
+      {{"(function (app) {
+      const name = 'Component'
+
+      app.routes[name] = {path: `${name.toLowerCase()}`}
+      app.routes[name]['component'] = app.components[name] = ng.core
+      .Component({
+        templateUrl: `templates/${name.toLowerCase()}/component.html`,
+        styleUrls: [
+          // `css/${name.toLowerCase()}.css`,
+        ],
+      })
+      .Class({
+        constructor: [ng.router.ActivatedRoute, function (route) {
+          this.route = route
+        }]
+      })
+      })(window.app || (window.app = {components: {}, routes: {}, services: {} }))"}}
+      </pre>
+
+      <h3 class="title">project/app/module.js</h3>
+      <article class="message is-info">
+        <div class="message-header">
+          Modified Module
+        </div>
+        <div class="message-body">
+          <p>This module.js includes a function that retrieves a list of routes, declarations, or providers.</p>
+          <br>
+          <p>Retrieved arrays are registered in their own namespaces, which are then used as values in the various properties of the module. This way, we can make a few more adjustments like adding the __otherwise route which redirects users to a default route when they try to navigate to a route we didn't register.</p>
+        </div>
+      </article>
+      <pre>
+      {{"(function (app) {
+      // utility function
+      app.get_list = function (name) {
+        app.namespaces = {
+          declarations: 'declarables',
+          routes: 'routes',
+          providers: 'services',
+        }
+        if (name in app.namespaces) {
+          let list = []
+          let namespace = app.namespaces[name]
+          if (namespace in app) {
+            for (let each in app[namespace]) {
+              if (each in app[namespace] && each.startsWith('__') != true) {
+                list[list.length] = app[namespace][each]
+              }
+            }
+          }
+          return list
+        }
+      }
+
+      // namespaces
+      app.routes.__otherwise = { path: '**',
+        redirectTo: 'home',
+        pathMatch: 'full',
+      }
+      app.AppRoutes = app.get_list('routes')
+      app.AppRoutes.push(app.routes.__otherwise)
+      app.AppProviders = app.get_list('providers')
+      app.AppComponents = app.get_list('declarations')
+
+      app.AppModule = ng.core
+      .NgModule({
+        imports: [
+          ng.common.CommonModule,
+          ng.platformBrowser.BrowserModule,
+          ng.forms.FormsModule,
+          ng.http.HttpModule,
+          ng.router.RouterModule.forRoot(app.AppRoutes, { useHash: true }),
+        ],
+        providers: app.AppProviders,
+        declarations: app.AppComponents,
+        bootstrap: [
+          app.declarables.App
+        ],
+      })
+      .Class({
+        constructor: function () {}
+      })
+      })(window.app || (window.app = {declarables: {}, routes: {}, services: {} }))"}}
+      </pre>
+
+    </div>
+  </div>
+</div>

@@ -1,0 +1,29 @@
+<section class="hero is-small is-primary is-bold">
+  <div class="hero-body">
+    <div class="container">
+      <h1 class="title">
+        Angular 2 SPA boilerplate and tutorial
+      </h1>
+      <h2 class="subtitle">
+        In JavaScript, no, not TypeScript!
+      </h2>
+    <nav>
+    </nav>
+    </div>
+  </div>
+</section>
+
+<nav class="nav has-shadow">
+  <div class="container">
+    <div class="nav-left">
+      <a class="nav-item is-tab" *ngFor="let each of nav" [routerLink]="each.path" routerLinkActive="is-active">
+        {{each.path | title}}
+      </a>
+    </div>
+  </div>
+</nav>
+
+<div class="container">
+  <br>
+  <router-outlet></router-outlet>
+</div>

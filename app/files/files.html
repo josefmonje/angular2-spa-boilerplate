@@ -1,0 +1,382 @@
+<div class="container">
+  <div class="columns">
+    <div class="column">
+      <h1 class="title">{{ route.snapshot.params[0] | title }}</h1>
+      <p>These are the files, mostly the same as the tutorial except for module.js. Components register themselves and their routes when they are defined. More details about this below and on the next page.</p>
+      <br>
+      <p>With this setup, there's not a lot to think about. After copy/pasting the component folder, you can focus on your component. In the typical setup, you have to remember to register your components and routes. This eliminates that.</p>
+      <br>
+    </div>
+  </div>
+  <div class="columns">
+    <div class="column is-4">
+      <aside class="menu">
+        <p class="menu-label">
+          Project Folder
+        </p>
+        <ul class="menu-list">
+          <li><a (click)="goToFile('package.json')">project/package.json</a></li>
+          <li><a (click)="goToFile('index.html')">project/index.html</a></li>
+        </ul>
+        <p class="menu-label">
+          App Folder
+        </p>
+        <ul class="menu-list">
+          <li><a (click)="goToFile('main.js')">project/app/main.js</a></li>
+          <li><a (click)="goToFile('module.js')">project/app/module.js</a></li>
+          <li><a (click)="goToFile('app.js')">project/app/app.js</a></li>
+          <li><a (click)="goToFile('app.html')">project/app/app.html</a></li>
+        </ul>
+        <p class="menu-label">
+          Utils Folder
+        </p>
+        <ul class="menu-list">
+          <li><a (click)="goToFile('pipes.js')">project/app/utils/pipes.js</a></li>
+        </ul>
+        <p class="menu-label">
+          Component Folder
+        </p>
+        <ul class="menu-list">
+          <li><a (click)="goToFile('componentName.js')">project/app/componentName/componentName.js</a></li>
+          <li><a (click)="goToFile('componentName.html')">project/app/componentName/componentName.html</a></li>
+        </ul>
+      </aside>
+    </div>
+
+    <div class="column is-8">
+
+      <div *ngIf="file == 'package.json'">
+        <article class="message is-info">
+          <div class="message-body">
+            <p>The <span>npm install</span> command finds this file in the current folder and installs the dependencies listed here into node_modules/.</p>
+          </div>
+        </article>
+        <br>
+        <pre>
+  {{'{
+    "name": "angular2-spa-boilerplate",
+    "version": ".1",
+    "license": "MIT",
+    "dependencies": {
+      "@angular/common": "2.0.0",
+      "@angular/compiler": "2.0.0",
+      "@angular/core": "2.0.0",
+      "@angular/forms": "2.0.0",
+      "@angular/http": "2.0.0",
+      "@angular/platform-browser": "2.0.0",
+      "@angular/platform-browser-dynamic": "2.0.0",
+      "@angular/router": "3.0.0",
+      "@angular/upgrade": "2.0.0",
+
+      "core-js": "^2.4.1",
+      "reflect-metadata": "^0.1.3",
+      "rxjs": "5.0.0-beta.12",
+      "zone.js": "^0.6.23",
+
+      "angular2-in-memory-web-api": "0.0.20",
+      "bootstrap": "^3.3.6",
+      "bulma": "0.2.3",
+    }
+  }'}}
+        </pre>
+      </div>
+
+      <div *ngIf="file == 'index.html'">
+        <article class="message is-info">
+          <div class="message-body">
+            <p>Index.html is just a shell that contains the actual app. Angular uses the &lt;app&gt; element for the actual app. You'll see this in <span>app.js</span>, the component's selector is <span>app</span>.</p>
+            <br>
+            <p>All the scripts and linked style sheets here are used everywhere. Linking can also be done at the module level but it will be limited to that module. A typical Angular 2 index.html file will look like this.</p>
+          </div>
+        </article>
+        <br>
+        <pre>
+  {{'&lt;html&gt;
+    &lt;head&gt;
+      &lt;base href="/"&gt;
+      &lt;title&gt;Angular 2 SPA boilerplate&lt;/title&gt;
+      &lt;meta name="viewport" content="width=device-width, initial-scale=1"&gt;
+      &lt;link rel="stylesheet" href=`app/app.css`&gt;
+      &lt;link rel="stylesheet" href="node_modules/bulma/css/bulma.css" /&gt;
+
+      &lt;!-- 1. Load libraries --&gt;
+      &lt;!-- IE required polyfill --&gt;
+      &lt;script src="node_modules/core-js/client/shim.min.js"&gt;&lt;/script&gt;
+      &lt;script src="node_modules/zone.js/dist/zone.js"&gt;&lt;/script&gt;
+      &lt;script src="node_modules/reflect-metadata/Reflect.js"&gt;&lt;/script&gt;
+
+      &lt;script src="node_modules/rxjs/bundles/Rx.js"&gt;&lt;/script&gt;
+      &lt;script src="node_modules/@angular/core/bundles/core.umd.js"&gt;&lt;/script&gt;
+      &lt;script src="node_modules/@angular/common/bundles/common.umd.js"&gt;&lt;/script&gt;
+      &lt;script src="node_modules/@angular/compiler/bundles/compiler.umd.js"&gt;&lt;/script&gt;
+      &lt;script src="node_modules/@angular/forms/bundles/forms.umd.js"&gt;&lt;/script&gt;
+      &lt;script src="node_modules/@angular/router/bundles/router.umd.js"&gt;&lt;/script&gt;
+      &lt;script src="node_modules/@angular/http/bundles/http.umd.js"&gt;&lt;/script&gt;
+      &lt;script src="node_modules/@angular/platform-browser/bundles/platform-browser.umd.js"&gt;&lt;/script&gt;
+      &lt;script src="node_modules/@angular/platform-browser-dynamic/bundles/platform-browser-dynamic.umd.js"&gt;&lt;/script&gt;
+
+      &lt;!-- 2. Load our "modules" --&gt;
+      &lt;script src="app/utils/pipes.js"&gt;&lt;/script&gt;
+      &lt;script src="app/home/component.js"&gt;&lt;/script&gt;
+      &lt;script src="app/files/component.js"&gt;&lt;/script&gt;
+      &lt;script src="app/components/component.js"&gt;&lt;/script&gt;
+      &lt;script src="app/app.js"&gt;&lt;/script&gt;
+      &lt;script src="app/module.js"&gt;&lt;/script&gt;
+      &lt;script src="app/main.js"&gt;&lt;/script&gt;
+    &lt;/head&gt;
+
+    &lt;!-- 3. Display the application --&gt;
+    &lt;body&gt;
+      &lt;app&gt;Loading...&lt;/app&gt;
+    &lt;/body&gt;
+  &lt;/html&gt;'}}
+        </pre>
+      </div>
+
+      <div *ngIf="file == 'main.js'">
+        <article class="message is-info">
+          <div class="message-body">
+            <p>Boilerplate Angular app bootstrapper.</p>
+            <br>
+            <p>The IIFE arguments <span>{{'(window.app || (window.app = {declarables: {}, routes: {}, services: {} }))'}}</span> includes the namespaces I added for a utility function in module.js. 
+            </p>
+          </div>
+        </article>
+        <br>
+        <pre>
+  {{"(function(app) {
+  document.addEventListener('DOMContentLoaded', function() {
+    // ng.core.enableProdMode()
+    ng.platformBrowserDynamic.platformBrowserDynamic().bootstrapModule(app.AppModule)})
+  })(window.app || (window.app = {declarables: {}, routes: {}, services: {} }))"}}
+        </pre>
+      </div>
+
+      <div *ngIf="file == 'module.js'">
+        <article class="message is-info">
+          <div class="message-body">
+            <p>I added a function that returns lists of registered components, routes and providers.</p>
+            <br>
+            <p>The section below the function are the namespaces where they are registered so we can add more items when needed.</p>
+            <br>
+            <p>As long as we follow the convention, we don't need to register each module manually.</p>
+          </div>
+        </article>
+        <br>
+        <pre *ngIf="file == 'module.js'">
+  {{"(function (app) {
+  app.get_list = function (name) {
+    app.namespaces = {
+      declarations: 'declarables',
+      routes: 'routes',
+      providers: 'services',
+    }
+    if (name in app.namespaces) {
+      let list = []
+      let namespace = app.namespaces[name]
+      if (namespace in app) {
+        for (let each in app[namespace]) {
+          if (each in app[namespace] && each.startsWith('__') != true) {
+            list[list.length] = app[namespace][each]
+          }
+        }
+      }
+      return list
+    }
+  }
+
+  app.routes.__otherwise = { path: '**',
+    redirectTo: 'home',
+    pathMatch: 'full',
+  }
+  app.AppRoutes = app.get_list('routes')
+  app.AppRoutes.push(app.routes.__otherwise)
+  app.AppProviders = app.get_list('providers')
+  app.AppComponents = app.get_list('declarations')
+
+  app.AppModule = ng.core
+  .NgModule({
+    imports: [
+      ng.common.CommonModule,
+      ng.platformBrowser.BrowserModule,
+      ng.forms.FormsModule,
+      ng.http.HttpModule,
+      ng.router.RouterModule.forRoot(app.AppRoutes, { useHash: true }),
+    ],
+    providers: app.AppProviders,
+    declarations: app.AppComponents,
+    bootstrap: [
+      app.declarables.App
+    ],
+  })
+  .Class({
+    constructor: function () {}
+  })
+  })(window.app || (window.app = {declarables: {}, routes: {}, services: {} }))"}}
+        </pre>
+      </div>
+
+      <div *ngIf="file == 'app.js'">
+        <article class="message is-info">
+          <div class="message-body">
+            <p>Boilerplate Angular 2 component. There are just two differences between this version and the components in the tutorial and those are:</p>
+            <br>
+            <ul>
+              <li><p>The components are registered in app.declarables[name]</p></li>
+              <br>
+              <li><p>The IIFE call argument is <span>window.app &#124;&#124; (window.app = &#123;declarables: &#123;&#125;, routes: &#123;&#125;, services: &#123;&#125; &#125;)</span></p></li>
+            </ul>
+          </div>
+        </article>
+        <br>
+        <pre>
+  {{"(function (app) {
+  const name = 'App'
+
+  app.declarables[name]= ng.core
+  .Component({
+    selector: 'app',
+    templateUrl: `app/${name.toLowerCase()}.html`,
+    styleUrls: [
+      // 'css/app.css'
+    ],
+  })
+  .Class({
+    constructor: function () {
+      this.nav = app.get_list('routes').filter((each) => {return !('hidden' in each)})
+    }
+  })
+  })(window.app || (window.app = {declarables: {}, routes: {}, services: {} }))"}}
+        </pre>
+      </div>
+
+      <div *ngIf="file == 'app.html'">
+        <article class="message is-info">
+          <div class="message-body">
+            <p>This is our single-page app's html.</p>
+            <br>
+            <p>Notice the &lt;router-outlet&gt; element at the bottom, that's where our components are shown.</p>
+            <br>
+            <p>If the double curly braces are new to you, these render variables from the controller's scope. In our case, <span>nav</span> is an array of objects in this module's class.</p>
+            <br>
+            <p>We looped through that list using <span>*ngFor</span> and displayed the path of each object. Those paths were also used as router links.</p>
+          </div>
+        </article>
+        <br>
+        <pre>
+  {{'&lt;section class="hero is-small is-primary is-bold"&gt;
+    &lt;div class="hero-body"&gt;
+      &lt;div class="container"&gt;
+        &lt;h1 class="title"&gt;
+          Angular 2 Tutorial and boilerplate
+        &lt;/h1&gt;
+        &lt;h2 class="subtitle"&gt;
+          In JavaScript, no, not TypeScript!
+        &lt;/h2&gt;
+      &lt;nav&gt;
+      &lt;/nav&gt;
+      &lt;/div&gt;
+    &lt;/div&gt;
+  &lt;/section&gt;
+
+  &lt;nav class="nav has-shadow"&gt;
+    &lt;div class="container"&gt;
+      &lt;div class="nav-left"&gt;
+        &lt;a class="nav-item is-tab"
+           *ngFor="let each of nav" [routerLink]="each.path" routerLinkActive="is-active"&gt;
+           \&#123;\&#123; each.path | title \&#125;\&#125;
+        &lt;/a&gt;
+      &lt;/div&gt;
+    &lt;/div&gt;
+  &lt;/nav&gt;
+
+  &lt;div class="container"&gt;
+    &lt;br&gt;
+    &lt;router-outlet&gt;&lt;/router-outlet&gt;
+  &lt;/div&gt;'}}
+        </pre>
+      </div>
+
+      <div *ngIf="file == 'pipes.js'">
+        <article class="message is-info">
+          <div class="message-body">
+            <p>Pipes are like filters frmo Angular 1. Creating custom pipes are as simple as creating a function that transforms a value and that may accept some arguments.</p>
+            <br>
+            <p>Notice the Pipe's pure property. It's <span>true</span> by default. If you want to check the value every change detection cycle, change this to false but that may have a performance penalty.</p>
+          </div>
+        </article>
+        <br>
+        <pre>
+  {{"(function (app) {
+  app.declarables.TitlePipe = ng.core
+  .Pipe({
+    name: 'title',
+    pure: true,
+  })
+  .Class({
+    constructor: function () {},
+    transform: function (value, args) {
+      if (!!value && typeof(value) == 'string') {
+        return value.charAt(0).toUpperCase() + value.slice(1)
+      } else {
+        return ''
+      }
+    }
+  })
+  })(window.app || (window.app = {declarables: {}, routes: {}, services: {} }))"}}
+        </pre>
+      </div>
+
+      <div *ngIf="file == 'componentName.js'">
+        <article class="message is-info">
+          <div class="message-body">
+            <p>Boilerplate Angular 2 component. There are just two differences between this version and the components in the tutorial and those are:</p>
+            <br>
+            <ul>
+              <li><p>The components are registered in app.declarables[name]</p></li>
+              <br>
+              <li><p>The IIFE call argument is <span>window.app &#124;&#124; (window.app = &#123;declarables: &#123;&#125;, routes: &#123;&#125;, services: &#123;&#125; &#125;)</span></p></li>
+            </ul>
+            <br>
+            <p>There is a third difference because this component is a route/view in our single-page app. It registers itself in the <span>app.routes[name] namespace as a route object so we can retrieve it later.</span></p>
+          </div>
+        </article>
+        <br>
+        <pre>
+  {{"(function (app) {
+  const name = 'Home'
+
+  app.routes[name] = {path: `${name.toLowerCase()}`}
+  app.routes[name]['component'] = app.declarables[name] = ng.core
+  .Component({
+    templateUrl: `app/${name.toLowerCase()}/${name.toLowerCase()}.html`,
+    styleUrls: [
+      // `css/${name.toLowerCase()}.css`,
+    ],
+  })
+  .Class({
+    constructor: [ng.router.ActivatedRoute, ng.router.Router, function (route, router) {
+      this.route = route
+    }],
+    ngOnInit: function () {
+    }
+  })
+  })(window.app || (window.app = {declarables: {}, routes: {}, services: {} }))"}}
+        </pre>
+      </div>
+
+      <div *ngIf="file == 'componentName.html'">
+        <article class="message is-info">
+          <div class="message-body">
+            <p>Your HTML.</p>
+          </div>
+        </article>
+        <br>
+        <pre>
+  &lt;!--HTML--&gt;
+        </pre>
+      </div>
+
+    </div>
+  </div>
+</div>
