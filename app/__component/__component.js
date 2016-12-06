@@ -5,9 +5,7 @@ app.routes[name] = {path: `${name.toLowerCase()}`}
 app.routes[name]['component'] = app.declarables[name] = ng.core
 .Component({
   templateUrl: `app/${name.toLowerCase()}/${name.toLowerCase()}.html`,
-  styleUrls: [
-    // `css/${name.toLowerCase()}.css`,
-  ],
+  styleUrls: [],
 })
 .Class({
   constructor: [ng.router.ActivatedRoute, function (route) {

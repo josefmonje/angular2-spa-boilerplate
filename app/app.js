@@ -5,9 +5,7 @@ app.declarables[name]= ng.core
 .Component({
   selector: 'app',
   templateUrl: `app/${name.toLowerCase()}.html`,
-  styleUrls: [
-    // 'css/app.css'
-  ],
+  styleUrls: [],
 })
 .Class({
   constructor: function () {

@@ -5,9 +5,7 @@ app.routes[`_${name}File`] = {path: `${name.toLowerCase()}/:file`, hidden: true}
 app.routes[`_${name}File`]['component'] = app.declarables[name] = ng.core
 .Component({
   templateUrl: `app/${name.toLowerCase()}/${name.toLowerCase()}.html`,
-  styleUrls: [
-    // `css/${name.toLowerCase()}.css`,
-  ],
+  styleUrls: [],
 })
 .Class({
   constructor: [ng.router.ActivatedRoute, ng.router.Router, function (route, router) {
