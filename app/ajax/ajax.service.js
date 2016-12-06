@@ -1,12 +1,11 @@
 (function (app) {
 const name = 'AjaxService'
 
+// https://github.com/angular/angular/issues/9294
 app.MockXSRF = {
   provide: ng.http.XSRFStrategy,
   useValue: {
     configureRequest: function(req) {
-      // console.log(req)
-      // return req
     }
   }
 }
@@ -20,6 +19,5 @@ app.services[name] = [ng.core
     return this.http.get('app/app.json')
       .map((res) => {return res.json()})
   }
-})
-, app.MockXSRF]
+}), app.MockXSRF]
 })(window.app || (window.app = {declarables: {}, routes: {}, services: {} }))
