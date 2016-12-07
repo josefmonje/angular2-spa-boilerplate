@@ -1,7 +1,7 @@
 <div class="container">
   <div class="columns">
     <div class="column">
-      <h1 class="title">{{ route.snapshot.params[0] | title }}</h1>
+      <h1 class="title" [innerHTML]="this.route.snapshot.url[0].path | title"></h1>
 
       <h3 class="title">project/app/app.js</h3>
       <article class="message is-info">

@@ -1,15 +1,16 @@
 <div class="container">
   <div class="columns">
     <div class="column">
-      <h1 class="title">{{ route.snapshot.params[0] | title }}</h1>
+      <h1 class="title" [innerHTML]="this.route.snapshot.url[0].path | title"></h1>
       <p>These are the files, mostly the same as the tutorial except for module.js. Components register themselves and their routes when they are defined. More details about this below and on the next page.</p>
       <br>
       <p>With this setup, there's not a lot to think about. After copy/pasting the component folder, you can focus on your component. In the typical setup, you have to remember to register your components and routes. This eliminates that.</p>
       <br>
+      <p class="box">Click the files listed in the menu to see its contents.</p>
     </div>
   </div>
   <div class="columns">
-    <div class="column is-4">
+    <div class="column is-3">
       <aside class="menu">
         <p class="menu-label">
           Project Folder
@@ -37,8 +38,14 @@
           Component Folder
         </p>
         <ul class="menu-list">
-          <li><a (click)="goToFile('componentName.js')">project/app/componentName/componentName.js</a></li>
-          <li><a (click)="goToFile('componentName.html')">project/app/componentName/componentName.html</a></li>
+          <li><a (click)="goToFile('__component.js')">project/app/__component/__component.js</a></li>
+          <li><a (click)="goToFile('__component.html')">project/app/__component/__component.html</a></li>
+        </ul>
+        <p class="menu-label">
+          Example Service
+        </p>
+        <ul class="menu-list">
+          <li><a (click)="goToFile('ajax.service.js')">project/app/ajax/ajax.service.js</a></li>
         </ul>
       </aside>
     </div>
@@ -53,31 +60,32 @@
         </article>
         <br>
         <pre>
-  {{'{
-    "name": "angular2-spa-boilerplate",
-    "version": ".1",
-    "license": "MIT",
-    "dependencies": {
-      "@angular/common": "2.0.0",
-      "@angular/compiler": "2.0.0",
-      "@angular/core": "2.0.0",
-      "@angular/forms": "2.0.0",
-      "@angular/http": "2.0.0",
-      "@angular/platform-browser": "2.0.0",
-      "@angular/platform-browser-dynamic": "2.0.0",
-      "@angular/router": "3.0.0",
-      "@angular/upgrade": "2.0.0",
+{{'{
+  "name": "angular2-spa-boilerplate",
+  "version": "1.0.0",
+  "license": "MIT",
+  "repository": "https://github.com/josefmonje/angular2-spa-boilerplate",
+  "dependencies": {
+    "@angular/common": "2.2.4",
+    "@angular/compiler": "2.2.4",
+    "@angular/core": "2.2.4",
+    "@angular/forms": "2.2.4",
+    "@angular/http": "2.2.4",
+    "@angular/platform-browser": "2.2.4",
+    "@angular/platform-browser-dynamic": "2.2.4",
+    "@angular/router": "3.0.0",
+    "@angular/upgrade": "2.2.4",
 
-      "core-js": "^2.4.1",
-      "reflect-metadata": "^0.1.3",
-      "rxjs": "5.0.0-beta.12",
-      "zone.js": "^0.6.23",
+    "core-js": "^2.4.1",
+    "reflect-metadata": "^0.1.8",
+    "rxjs": "5.0.0-beta.12",
+    "zone.js": "^0.6.21",
+    "es6-shim":"^0.35.2",
 
-      "angular2-in-memory-web-api": "0.0.20",
-      "bootstrap": "^3.3.6",
-      "bulma": "0.2.3",
-    }
-  }'}}
+    "angular2-in-memory-web-api": "0.0.20",
+    "bulma": "0.2.3"
+  }
+}'}}
         </pre>
       </div>
 
@@ -91,45 +99,51 @@
         </article>
         <br>
         <pre>
-  {{'&lt;html&gt;
-    &lt;head&gt;
-      &lt;base href="/"&gt;
-      &lt;title&gt;Angular 2 SPA boilerplate&lt;/title&gt;
-      &lt;meta name="viewport" content="width=device-width, initial-scale=1"&gt;
-      &lt;link rel="stylesheet" href=`app/app.css`&gt;
-      &lt;link rel="stylesheet" href="node_modules/bulma/css/bulma.css" /&gt;
+&lt;html&gt;
+  &lt;head&gt;
+    &lt;base href="/"&gt;
+    &lt;title&gt;Angular 2 SPA boilerplate&lt;/title&gt;
+    &lt;meta name="viewport" content="width=device-width, initial-scale=1"&gt;
+    &lt;link rel="stylesheet" href=`app/app.css`&gt;
+    &lt;link rel="stylesheet" href="node_modules/bulma/css/bulma.css" /&gt;
 
-      &lt;!-- 1. Load libraries --&gt;
-      &lt;!-- IE required polyfill --&gt;
-      &lt;script src="node_modules/core-js/client/shim.min.js"&gt;&lt;/script&gt;
-      &lt;script src="node_modules/zone.js/dist/zone.js"&gt;&lt;/script&gt;
-      &lt;script src="node_modules/reflect-metadata/Reflect.js"&gt;&lt;/script&gt;
+    &lt;!-- 1. Load libraries --&gt;
+    &lt;!-- IE required polyfill --&gt;
+    &lt;script src="node_modules/core-js/client/shim.min.js"&gt;&lt;/script&gt;
+    &lt;script src="node_modules/zone.js/dist/zone.js"&gt;&lt;/script&gt;
+    &lt;script src="node_modules/reflect-metadata/Reflect.js"&gt;&lt;/script&gt;
 
-      &lt;script src="node_modules/rxjs/bundles/Rx.js"&gt;&lt;/script&gt;
-      &lt;script src="node_modules/@angular/core/bundles/core.umd.js"&gt;&lt;/script&gt;
-      &lt;script src="node_modules/@angular/common/bundles/common.umd.js"&gt;&lt;/script&gt;
-      &lt;script src="node_modules/@angular/compiler/bundles/compiler.umd.js"&gt;&lt;/script&gt;
-      &lt;script src="node_modules/@angular/forms/bundles/forms.umd.js"&gt;&lt;/script&gt;
-      &lt;script src="node_modules/@angular/router/bundles/router.umd.js"&gt;&lt;/script&gt;
-      &lt;script src="node_modules/@angular/http/bundles/http.umd.js"&gt;&lt;/script&gt;
-      &lt;script src="node_modules/@angular/platform-browser/bundles/platform-browser.umd.js"&gt;&lt;/script&gt;
-      &lt;script src="node_modules/@angular/platform-browser-dynamic/bundles/platform-browser-dynamic.umd.js"&gt;&lt;/script&gt;
+    &lt;script src="node_modules/rxjs/bundles/Rx.js"&gt;&lt;/script&gt;
+    &lt;script src="node_modules/@angular/core/bundles/core.umd.js"&gt;&lt;/script&gt;
+    &lt;script src="node_modules/@angular/common/bundles/common.umd.js"&gt;&lt;/script&gt;
+    &lt;script src="node_modules/@angular/compiler/bundles/compiler.umd.js"&gt;&lt;/script&gt;
+    &lt;script src="node_modules/@angular/forms/bundles/forms.umd.js"&gt;&lt;/script&gt;
+    &lt;script src="node_modules/@angular/router/bundles/router.umd.js"&gt;&lt;/script&gt;
+    &lt;script src="node_modules/@angular/http/bundles/http.umd.js"&gt;&lt;/script&gt;
+    &lt;script src="node_modules/@angular/platform-browser/bundles/platform-browser.umd.js"&gt;&lt;/script&gt;
+    &lt;script src="node_modules/@angular/platform-browser-dynamic/bundles/platform-browser-dynamic.umd.js"&gt;&lt;/script&gt;
 
-      &lt;!-- 2. Load our "modules" --&gt;
-      &lt;script src="app/utils/pipes.js"&gt;&lt;/script&gt;
-      &lt;script src="app/home/component.js"&gt;&lt;/script&gt;
-      &lt;script src="app/files/component.js"&gt;&lt;/script&gt;
-      &lt;script src="app/components/component.js"&gt;&lt;/script&gt;
-      &lt;script src="app/app.js"&gt;&lt;/script&gt;
-      &lt;script src="app/module.js"&gt;&lt;/script&gt;
-      &lt;script src="app/main.js"&gt;&lt;/script&gt;
-    &lt;/head&gt;
+    <!-- 2. Load our "services and utils first" -->
+    &lt;script src="app/utils/pipes.js"&gt;&lt;/script&gt;
+    &lt;script src="app/ajax/ajax.service.js"&gt;&lt;/script&gt;
 
-    &lt;!-- 3. Display the application --&gt;
-    &lt;body&gt;
-      &lt;app&gt;Loading...&lt;/app&gt;
-    &lt;/body&gt;
-  &lt;/html&gt;'}}
+    &lt;!-- 3. Load our "modules" --&gt;
+    &lt;script src="app/utils/pipes.js"&gt;&lt;/script&gt;
+    &lt;script src="app/home/component.js"&gt;&lt;/script&gt;
+    &lt;script src="app/files/component.js"&gt;&lt;/script&gt;
+    &lt;script src="app/components/component.js"&gt;&lt;/script&gt;
+    &lt;script src="app/ajax/ajax.js"&gt;&lt;/script&gt;
+
+    &lt;script src="app/app.js"&gt;&lt;/script&gt;
+    &lt;script src="app/app.module.js"&gt;&lt;/script&gt;
+    &lt;script src="app/main.js"&gt;&lt;/script&gt;
+  &lt;/head&gt;
+
+  &lt;!-- 3. Display the application --&gt;
+  &lt;body&gt;
+    &lt;app&gt;Loading...&lt;/app&gt;
+  &lt;/body&gt;
+&lt;/html&gt;
         </pre>
       </div>
 
@@ -144,11 +158,11 @@
         </article>
         <br>
         <pre>
-  {{"(function(app) {
-  document.addEventListener('DOMContentLoaded', function() {
-    // ng.core.enableProdMode()
-    ng.platformBrowserDynamic.platformBrowserDynamic().bootstrapModule(app.AppModule)})
-  })(window.app || (window.app = {declarables: {}, routes: {}, services: {} }))"}}
+{{"(function(app) {
+document.addEventListener('DOMContentLoaded', function() {
+  // ng.core.enableProdMode()
+  ng.platformBrowserDynamic.platformBrowserDynamic().bootstrapModule(app.AppModule)})
+})(window.app || (window.app = {declarables: {}, routes: {}, services: {} }))"}}
         </pre>
       </div>
 
@@ -164,55 +178,55 @@
         </article>
         <br>
         <pre *ngIf="file == 'module.js'">
-  {{"(function (app) {
-  app.get_list = function (name) {
-    app.namespaces = {
-      declarations: 'declarables',
-      routes: 'routes',
-      providers: 'services',
-    }
-    if (name in app.namespaces) {
-      let list = []
-      let namespace = app.namespaces[name]
-      if (namespace in app) {
-        for (let each in app[namespace]) {
-          if (each in app[namespace] && each.startsWith('__') != true) {
-            list[list.length] = app[namespace][each]
-          }
+{{"(function (app) {
+app.get_list = function (name) {
+  app.namespaces = {
+    declarations: 'declarables',
+    routes: 'routes',
+    providers: 'services',
+  }
+  if (name in app.namespaces) {
+    let list = []
+    let namespace = app.namespaces[name]
+    if (namespace in app) {
+      for (let each in app[namespace]) {
+        if (each in app[namespace] && each.startsWith('__') != true) {
+          list[list.length] = app[namespace][each]
         }
       }
-      return list
     }
+    return list
   }
+}
 
-  app.routes.__otherwise = { path: '**',
-    redirectTo: 'home',
-    pathMatch: 'full',
-  }
-  app.AppRoutes = app.get_list('routes')
-  app.AppRoutes.push(app.routes.__otherwise)
-  app.AppProviders = app.get_list('providers')
-  app.AppComponents = app.get_list('declarations')
+app.routes.__otherwise = { path: '**',
+  redirectTo: 'home',
+  pathMatch: 'full',
+}
+app.AppRoutes = app.get_list('routes')
+app.AppRoutes.push(app.routes.__otherwise)
+app.AppProviders = app.get_list('providers')
+app.AppComponents = app.get_list('declarations')
 
-  app.AppModule = ng.core
-  .NgModule({
-    imports: [
-      ng.common.CommonModule,
-      ng.platformBrowser.BrowserModule,
-      ng.forms.FormsModule,
-      ng.http.HttpModule,
-      ng.router.RouterModule.forRoot(app.AppRoutes, { useHash: true }),
-    ],
-    providers: app.AppProviders,
-    declarations: app.AppComponents,
-    bootstrap: [
-      app.declarables.App
-    ],
-  })
-  .Class({
-    constructor: function () {}
-  })
-  })(window.app || (window.app = {declarables: {}, routes: {}, services: {} }))"}}
+app.AppModule = ng.core
+.NgModule({
+  imports: [
+    ng.common.CommonModule,
+    ng.platformBrowser.BrowserModule,
+    ng.forms.FormsModule,
+    ng.http.HttpModule,
+    ng.router.RouterModule.forRoot(app.AppRoutes, { useHash: true }),
+  ],
+  providers: app.AppProviders,
+  declarations: app.AppComponents,
+  bootstrap: [
+    app.declarables.App
+  ],
+})
+.Class({
+  constructor: function () {}
+})
+})(window.app || (window.app = {declarables: {}, routes: {}, services: {} }))"}}
         </pre>
       </div>
 
@@ -230,23 +244,21 @@
         </article>
         <br>
         <pre>
-  {{"(function (app) {
-  const name = 'App'
+{{"(function (app) {
+const name = 'App'
 
-  app.declarables[name]= ng.core
-  .Component({
-    selector: 'app',
-    templateUrl: `app/${name.toLowerCase()}.html`,
-    styleUrls: [
-      // 'css/app.css'
-    ],
-  })
-  .Class({
-    constructor: function () {
-      this.nav = app.get_list('routes').filter((each) => {return !('hidden' in each)})
-    }
-  })
-  })(window.app || (window.app = {declarables: {}, routes: {}, services: {} }))"}}
+app.declarables[name]= ng.core
+.Component({
+  selector: 'app',
+  templateUrl: `app/${name.toLowerCase()}.html`,
+  styleUrls: [],
+})
+.Class({
+  constructor: function () {
+    this.nav = app.get_list('routes').filter((each) => {return !('hidden' in each)})
+  }
+})
+})(window.app || (window.app = {declarables: {}, routes: {}, services: {} }))"}}
         </pre>
       </div>
 
@@ -264,36 +276,36 @@
         </article>
         <br>
         <pre>
-  {{'&lt;section class="hero is-small is-primary is-bold"&gt;
-    &lt;div class="hero-body"&gt;
-      &lt;div class="container"&gt;
-        &lt;h1 class="title"&gt;
-          Angular 2 Tutorial and boilerplate
-        &lt;/h1&gt;
-        &lt;h2 class="subtitle"&gt;
-          In JavaScript, no, not TypeScript!
-        &lt;/h2&gt;
-      &lt;nav&gt;
-      &lt;/nav&gt;
-      &lt;/div&gt;
-    &lt;/div&gt;
-  &lt;/section&gt;
-
-  &lt;nav class="nav has-shadow"&gt;
+&lt;section class="hero is-small is-primary is-bold"&gt;
+  &lt;div class="hero-body"&gt;
     &lt;div class="container"&gt;
-      &lt;div class="nav-left"&gt;
-        &lt;a class="nav-item is-tab"
-           *ngFor="let each of nav" [routerLink]="each.path" routerLinkActive="is-active"&gt;
-           \&#123;\&#123; each.path | title \&#125;\&#125;
-        &lt;/a&gt;
-      &lt;/div&gt;
+      &lt;h1 class="title"&gt;
+        Angular 2 Tutorial and boilerplate
+      &lt;/h1&gt;
+      &lt;h2 class="subtitle"&gt;
+        In JavaScript, no, not TypeScript!
+      &lt;/h2&gt;
+    &lt;nav&gt;
+    &lt;/nav&gt;
     &lt;/div&gt;
-  &lt;/nav&gt;
+  &lt;/div&gt;
+&lt;/section&gt;
 
+&lt;nav class="nav has-shadow"&gt;
   &lt;div class="container"&gt;
-    &lt;br&gt;
-    &lt;router-outlet&gt;&lt;/router-outlet&gt;
-  &lt;/div&gt;'}}
+    &lt;div class="nav-left"&gt;
+      &lt;a class="nav-item is-tab"
+         *ngFor="let each of nav" [routerLink]="each.path" routerLinkActive="is-active"&gt;
+         \&#123;\&#123; each.path | title \&#125;\&#125;
+      &lt;/a&gt;
+    &lt;/div&gt;
+  &lt;/div&gt;
+&lt;/nav&gt;
+
+&lt;div class="container"&gt;
+  &lt;br&gt;
+  &lt;router-outlet&gt;&lt;/router-outlet&gt;
+&lt;/div&gt;
         </pre>
       </div>
 
@@ -307,27 +319,64 @@
         </article>
         <br>
         <pre>
-  {{"(function (app) {
-  app.declarables.TitlePipe = ng.core
-  .Pipe({
-    name: 'title',
-    pure: true,
-  })
-  .Class({
-    constructor: function () {},
-    transform: function (value, args) {
-      if (!!value && typeof(value) == 'string') {
-        return value.charAt(0).toUpperCase() + value.slice(1)
-      } else {
-        return ''
-      }
+{{"(function (app) {
+app.declarables.TitlePipe = ng.core
+.Pipe({
+  name: 'title',
+  pure: true,
+})
+.Class({
+  constructor: function () {},
+  transform: function (value, args) {
+    if (!!value && typeof(value) == 'string') {
+      return value.charAt(0).toUpperCase() + value.slice(1)
+    } else {
+      return ''
     }
-  })
-  })(window.app || (window.app = {declarables: {}, routes: {}, services: {} }))"}}
+  }
+})
+})(window.app || (window.app = {declarables: {}, routes: {}, services: {} }))"}}
         </pre>
       </div>
 
-      <div *ngIf="file == 'componentName.js'">
+      <div *ngIf="file == 'ajax.service.js'">
+        <article class="message is-info">
+          <div class="message-body">
+            <p>Pipes are like filters frmo Angular 1. Creating custom pipes are as simple as creating a function that transforms a value and that may accept some arguments.</p>
+            <br>
+            <p>Notice the Pipe's pure property. It's <span>true</span> by default. If you want to check the value every change detection cycle, change this to false but that may have a performance penalty.</p>
+          </div>
+        </article>
+        <br>
+        <pre>
+{{"(function (app) {
+const name = 'AjaxService'
+
+// https://github.com/angular/angular/issues/9294
+app.MockXSRF = {
+  provide: ng.http.XSRFStrategy,
+  useValue: {
+    configureRequest: function(req) {
+    }
+  }
+}
+
+app.services[name] = [ng.core
+.Class({
+  constructor: [ng.http.Http, function (http) {
+    this.http = http
+  }],
+  getStuff: function() {
+    // return this.http.get('app/app.json')
+    return this.http.get('https://api.github.com')
+      .map((res) => {return res.json()})
+  }
+}), app.MockXSRF]
+})(window.app || (window.app = {declarables: {}, routes: {}, services: {} }))"}}
+        </pre>
+      </div>
+
+      <div *ngIf="file == '__component.js'">
         <article class="message is-info">
           <div class="message-body">
             <p>Boilerplate Angular 2 component. There are just two differences between this version and the components in the tutorial and those are:</p>
@@ -343,29 +392,27 @@
         </article>
         <br>
         <pre>
-  {{"(function (app) {
-  const name = 'Home'
+{{"(function (app) {
+const name = 'Home'
 
-  app.routes[name] = {path: `${name.toLowerCase()}`}
-  app.routes[name]['component'] = app.declarables[name] = ng.core
-  .Component({
-    templateUrl: `app/${name.toLowerCase()}/${name.toLowerCase()}.html`,
-    styleUrls: [
-      // `css/${name.toLowerCase()}.css`,
-    ],
-  })
-  .Class({
-    constructor: [ng.router.ActivatedRoute, ng.router.Router, function (route, router) {
-      this.route = route
-    }],
-    ngOnInit: function () {
-    }
-  })
-  })(window.app || (window.app = {declarables: {}, routes: {}, services: {} }))"}}
+app.routes[name] = {path: `${name.toLowerCase()}`}
+app.routes[name]['component'] = app.declarables[name] = ng.core
+.Component({
+  templateUrl: `app/${name.toLowerCase()}/${name.toLowerCase()}.html`,
+  styleUrls: [],
+})
+.Class({
+  constructor: [ng.router.ActivatedRoute, ng.router.Router, function (route, router) {
+    this.route = route
+  }],
+  ngOnInit: function () {
+  }
+})
+})(window.app || (window.app = {declarables: {}, routes: {}, services: {} }))"}}
         </pre>
       </div>
 
-      <div *ngIf="file == 'componentName.html'">
+      <div *ngIf="file == '__component.html'">
         <article class="message is-info">
           <div class="message-body">
             <p>Your HTML.</p>

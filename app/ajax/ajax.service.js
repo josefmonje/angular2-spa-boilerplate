@@ -16,7 +16,8 @@ app.services[name] = [ng.core
     this.http = http
   }],
   getStuff: function() {
-    return this.http.get('app/app.json')
+    // return this.http.get('app/app.json')
+    return this.http.get('https://api.github.com')
       .map((res) => {return res.json()})
   }
 }), app.MockXSRF]
