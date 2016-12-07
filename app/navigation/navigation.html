@@ -13,11 +13,11 @@
         </div>
       </article>
       <pre>
-      {{".Class({
-        constructor: function () {
-          this.nav = app.get_list('routes').filter((each) => {return !('hidden' in each)})
-        }
-      })"}}
+{{".Class({
+  constructor: function () {
+    this.nav = app.get_list('routes').filter((each) => {return !('hidden' in each)})
+  }
+})"}}
       </pre>
 
       <h3 class="title">project/files/files.js</h3>
@@ -30,11 +30,11 @@
         </div>
       </article>
       <pre>
-      {{"app.routes[`__${name}File`] = {
-        path: `${name.toLowerCase()}/:file`, 
-        component: app.declarables[name], 
-        hidden: true,
-      }"}}
+{{"app.routes[`__${name}File`] = {
+  path: `${name.toLowerCase()}/:file`, 
+  component: app.declarables[name], 
+  hidden: true,
+}"}}
       </pre>
 
       <h3 class="title">project/app/modules.js</h3>
@@ -51,10 +51,10 @@
         </div>
       </article>
       <pre>
-      {{"app.routes.__otherwise = { path: '**',
-        redirectTo: 'home',
-        pathMatch: 'full',
-      }"}}
+{{"app.routes.__otherwise = { path: '**',
+  redirectTo: 'home',
+  pathMatch: 'full',
+}"}}
       </pre>
 
       <h3 class="title">project/app/app.html</h3>
@@ -67,9 +67,9 @@
         </div>
       </article>
       <pre>
-      {{'&lt;a class="nav-item is-tab" *ngFor="let each of nav" [routerLink]="each.path" routerLinkActive="is-active"&gt;
-        \{\{ each.path | title \}\}
-      &lt;/a&gt;'}}
+{{'&lt;a class="nav-item is-tab" *ngFor="let each of nav" [routerLink]="each.path" routerLinkActive="is-active"&gt;
+  \{\{ each.path | title \}\}
+&lt;/a&gt;'}}
       </pre>
 
     </div>

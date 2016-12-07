@@ -2,7 +2,7 @@
   <div class="columns">
     <div class="column">
       <h1 class="title" [innerHTML]="this.route.snapshot.url[0].path | title"></h1>
-      <p>These are the files, mostly the same as the tutorial except for module.js. Components register themselves and their routes when they are defined. More details about this below and on the next page.</p>
+      <p>These are the files, mostly the same as the tutorial except for app.module.js. Components register themselves and their routes when they are defined. More details about this below and on the next page.</p>
       <br>
       <p>With this setup, there's not a lot to think about. After copy/pasting the component folder, you can focus on your component. In the typical setup, you have to remember to register your components and routes. This eliminates that.</p>
       <br>
@@ -24,7 +24,7 @@
         </p>
         <ul class="menu-list">
           <li><a (click)="goToFile('main.js')">project/app/main.js</a></li>
-          <li><a (click)="goToFile('module.js')">project/app/module.js</a></li>
+          <li><a (click)="goToFile('app.module.js')">project/app/app.module.js</a></li>
           <li><a (click)="goToFile('app.js')">project/app/app.js</a></li>
           <li><a (click)="goToFile('app.html')">project/app/app.html</a></li>
         </ul>
@@ -92,7 +92,7 @@
       <div *ngIf="file == 'index.html'">
         <article class="message is-info">
           <div class="message-body">
-            <p>Index.html is just a shell that contains the actual app. Angular uses the &lt;app&gt; element for the actual app. You'll see this in <span>app.js</span>, the component's selector is <span>app</span>.</p>
+            <p>Index.html is just a shell that contains the actual app. Angular uses the &lt;app&gt; element for the actual app. You'll see this in <span>app.js</span>, the component's selector is "<span>app</span>".</p>
             <br>
             <p>All the scripts and linked style sheets here are used everywhere. Linking can also be done at the module level but it will be limited to that module. A typical Angular 2 index.html file will look like this.</p>
           </div>
@@ -152,7 +152,7 @@
           <div class="message-body">
             <p>Boilerplate Angular app bootstrapper.</p>
             <br>
-            <p>The IIFE arguments <span>{{'(window.app || (window.app = {declarables: {}, routes: {}, services: {} }))'}}</span> includes the namespaces I added for a utility function in module.js. 
+            <p>The IIFE arguments <span>{{'(window.app || (window.app = {declarables: {}, routes: {}, services: {} }))'}}</span> includes the namespaces I added for a utility function in app.module.js. 
             </p>
           </div>
         </article>
@@ -166,7 +166,7 @@ document.addEventListener('DOMContentLoaded', function() {
         </pre>
       </div>
 
-      <div *ngIf="file == 'module.js'">
+      <div *ngIf="file == 'app.module.js'">
         <article class="message is-info">
           <div class="message-body">
             <p>I added a function that returns lists of registered components, routes and providers.</p>
@@ -177,7 +177,7 @@ document.addEventListener('DOMContentLoaded', function() {
           </div>
         </article>
         <br>
-        <pre *ngIf="file == 'module.js'">
+        <pre *ngIf="file == 'app.module.js'">
 {{"(function (app) {
 app.get_list = function (name) {
   app.namespaces = {
@@ -296,7 +296,7 @@ app.declarables[name]= ng.core
     &lt;div class="nav-left"&gt;
       &lt;a class="nav-item is-tab"
          *ngFor="let each of nav" [routerLink]="each.path" routerLinkActive="is-active"&gt;
-         \&#123;\&#123; each.path | title \&#125;\&#125;
+         {{"&#123;&#123;"}} each.path | title &#125;&#125;
       &lt;/a&gt;
     &lt;/div&gt;
   &lt;/div&gt;
@@ -312,7 +312,7 @@ app.declarables[name]= ng.core
       <div *ngIf="file == 'pipes.js'">
         <article class="message is-info">
           <div class="message-body">
-            <p>Pipes are like filters frmo Angular 1. Creating custom pipes are as simple as creating a function that transforms a value and that may accept some arguments.</p>
+            <p>Pipes are like filters from Angular 1. Creating custom pipes are as simple as creating a function that transforms a value and that may accept some arguments.</p>
             <br>
             <p>Notice the Pipe's pure property. It's <span>true</span> by default. If you want to check the value every change detection cycle, change this to false but that may have a performance penalty.</p>
           </div>
@@ -335,43 +335,6 @@ app.declarables.TitlePipe = ng.core
     }
   }
 })
-})(window.app || (window.app = {declarables: {}, routes: {}, services: {} }))"}}
-        </pre>
-      </div>
-
-      <div *ngIf="file == 'ajax.service.js'">
-        <article class="message is-info">
-          <div class="message-body">
-            <p>Pipes are like filters frmo Angular 1. Creating custom pipes are as simple as creating a function that transforms a value and that may accept some arguments.</p>
-            <br>
-            <p>Notice the Pipe's pure property. It's <span>true</span> by default. If you want to check the value every change detection cycle, change this to false but that may have a performance penalty.</p>
-          </div>
-        </article>
-        <br>
-        <pre>
-{{"(function (app) {
-const name = 'AjaxService'
-
-// https://github.com/angular/angular/issues/9294
-app.MockXSRF = {
-  provide: ng.http.XSRFStrategy,
-  useValue: {
-    configureRequest: function(req) {
-    }
-  }
-}
-
-app.services[name] = [ng.core
-.Class({
-  constructor: [ng.http.Http, function (http) {
-    this.http = http
-  }],
-  getStuff: function() {
-    // return this.http.get('app/app.json')
-    return this.http.get('https://api.github.com')
-      .map((res) => {return res.json()})
-  }
-}), app.MockXSRF]
 })(window.app || (window.app = {declarables: {}, routes: {}, services: {} }))"}}
         </pre>
       </div>
@@ -421,6 +384,59 @@ app.routes[name]['component'] = app.declarables[name] = ng.core
         <br>
         <pre>
   &lt;!--HTML--&gt;
+        </pre>
+      </div>
+
+      <div *ngIf="file == 'ajax.service.js'">
+        <article class="message is-info">
+          <div class="message-body">
+            <p>This tutorial wouldn't be complete without an example API call. These are placed in services. It's written according to our convention by assigning it to our services namespace.</p>
+            <br>
+            <p>In this particular case, there's a bug in Angular so I needed to mock the XSRF strategy. This was injected into the service by registering it as an array, with the service as the first object and the second object injected into it. We are replacing the <span>configureRequest</span> method of the CookieXSRFStrategy. Because bug.</p>
+            <br>
+            <p>Notice the Pipe's pure property. It's <span>true</span> by default. If you want to check the value every change detection cycle, change this to false but that may have a performance penalty.</p>
+          </div>
+        </article>
+        <br>
+        <pre>
+{{"(function (app) {
+const name = 'AjaxService'
+
+// https://github.com/angular/angular/issues/9294
+app.MockXSRF = {
+  provide: ng.http.XSRFStrategy,
+  useValue: {
+    configureRequest: function(req) {
+    }
+  }
+}
+
+app.services[name] = [ng.core
+.Class({
+  constructor: [ng.http.Http, function (http) {
+    this.http = http
+  }],
+  getStuff: function() {
+    return this.http.get('https://api.github.com')
+      .map((res) => {return res.json()})
+  }
+}), app.MockXSRF]
+})(window.app || (window.app = {declarables: {}, routes: {}, services: {} }))"}}
+        </pre>
+        <br>
+
+        <article class="message is-info">
+          <div class="message-body">
+            <p>Without injecting this mock XSRF strategy, the cause of the bug is in<span>node_modules/@angular/http/bundles/http.umd.js</span> is the section below:</p>
+            <br>
+            <p><span>_angular_platformBrowser</span> is undefined.</p>
+          </div>
+        </article>
+        <br>
+        <pre>
+{{'CookieXSRFStrategy.prototype.configureRequest = function (req) {
+    var xsrfToken = _angular_platformBrowser.__platform_browser_private__.getDOM().getCookie(this._cookieName);
+    if (xsrfToken) {'}}
         </pre>
       </div>
 
